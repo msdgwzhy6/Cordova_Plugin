@@ -6,7 +6,8 @@
 //  Copyright © 2015年 jichengsun. All rights reserved.
 //
 
-#import "CDVPlugin.h"
+#import <Cordova/CDVPlugin.h>
+#import <Foundation/Foundation.h>
 
 @interface YCProblemSetPlugin : CDVPlugin
 - (void)loadImage:(CDVInvokedUrlCommand*)command;
