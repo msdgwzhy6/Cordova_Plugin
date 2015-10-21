@@ -5,9 +5,8 @@
 //  Created by jiChengSun on 15/10/20.
 //  Copyright © 2015年 jichengsun. All rights reserved.
 //
-
-#import <Cordova/CDV.h>
 #import "YCProblemSetPlugin.h"
+#import <Cordova/CDV.h>
 
 @implementation YCProblemSetPlugin
 - (void)loadImage:(CDVInvokedUrlCommand*)command
