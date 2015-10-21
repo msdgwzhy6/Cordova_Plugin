@@ -7,6 +7,7 @@
 //
 
 #import <Cordova/CDV.h>
+#import "YCProblemSetPlugin.h"
 
 @implementation YCProblemSetPlugin
 - (void)loadImage:(CDVInvokedUrlCommand*)command
