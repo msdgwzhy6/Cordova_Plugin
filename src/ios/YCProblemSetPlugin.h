@@ -1,5 +1,5 @@
 //
-//  YCProblemSetCDVPlugin.h
+//  YCProblemSetPlugin.h
 //  YCMath345-iOS
 //
 //  Created by jiChengSun on 15/10/20.
@@ -7,7 +7,6 @@
 //
 
 #import <Cordova/CDVPlugin.h>
-#import <Foundation/Foundation.h>
 
 @interface YCProblemSetPlugin : CDVPlugin
 - (void)loadImage:(CDVInvokedUrlCommand*)command;
