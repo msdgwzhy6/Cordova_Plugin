@@ -22,4 +22,3 @@ YCProblemSetPlugin.install = function () {
 };
 
 cordova.addConstructor(YCProblemSetPlugin.install);
-});
