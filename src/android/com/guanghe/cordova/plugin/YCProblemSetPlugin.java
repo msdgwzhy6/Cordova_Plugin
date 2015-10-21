@@ -55,7 +55,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         try {
             reslutJO.put("title", "title测试");
             reslutJO.put("content", "content测试");
-            callbackContext.success(reslutJO);
+            callbackContext.success("121212");
         } catch (JSONException e) {
             e.printStackTrace();
             callbackContext.error(e.getMessage());
