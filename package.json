@@ -1,0 +1,21 @@
+{
+  "name": "cordova-plugin-ycproblemplugin”,
+  "version": "1.0.1",
+  "description": "Cordova Problem Plugin",
+  "cordova": {
+    "id": "cordova-plugin-ycproblemsetplugin",
+    "platforms": [
+     "android”,
+     “ios”	    
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apache/cordova-plugin-device"
+  },
+  "keywords": [
+    "cordova"
+   ],
+  "author": "Apache Software Foundation",
+  "license": "Apache 2.0"
+}
