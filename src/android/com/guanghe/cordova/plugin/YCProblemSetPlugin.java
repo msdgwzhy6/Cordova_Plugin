@@ -75,7 +75,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             jsonObject.put("bloods", cBloods);
             jsonObject.put("currentProgress", 3);
             jsonObject.put("totalProgress", 5);
-            callbackContext.success(jsonObject.toString());
+            callbackContext.success(jsonObject);
         } catch (JSONException e) {
             callbackContext.error(e.getMessage());
         }
@@ -91,7 +91,8 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         try {
             JSONObject reslutJO = null;
             if (args == null) {
-                reslutJO = pickProblem(cLevel, cNumber);
+                callbackContext.error(" args is null ");
+                return;
             } else {
                 String arg = args.getString(0);//获取请求参数
                 if ("succeed".equals(arg)) {
@@ -111,10 +112,12 @@ public class YCProblemSetPlugin extends CordovaPlugin {
                         return;
                     }
                     reslutJO = pickProblem(cLevel, cNumber);
+                }else {
+                    reslutJO = pickProblem(cLevel, cNumber);
                 }
             }
             if (reslutJO != null) {
-                callbackContext.success(reslutJO.toString());
+                callbackContext.success(reslutJO);
             } else {
                 callbackContext.error("load error");
             }
