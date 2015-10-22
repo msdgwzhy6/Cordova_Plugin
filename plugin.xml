@@ -43,6 +43,7 @@
 		<config-file target="AndroidManifest.xml" parent="/manifest">
 			<uses-permission android:name="android.permission.INTERNET" />
 		</config-file>
+		<source-file src="src/android/com/guanghe/cordova/plugin/YCProblemSetPlugin.java" target-dir="src/com/guanghe/cordova/plugin" />
 		
 	</platform>
 </plugin>
