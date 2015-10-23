@@ -17,6 +17,11 @@ YCProblemSetPlugin.prototype.loadProblemContext = function (url, options) {
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemContext", [url, options]);
 };
 
+YCProblemSetPlugin.prototype.closeProblemSet = function (url, options) {
+    options = options || {};
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "closeProblemSet", [url, options]);
+};
+
 
 YCProblemSetPlugin.install = function () {
 	if (!window.plugins) {
