@@ -18,8 +18,17 @@ totalProgress: Number
 
  ````
 
-2. 
-**closeProblemSet (退出做题)**  
+2. closeProblemSet (退出做题)
 parameter:
   无  
-return: 无
+return: 无 
+
+3. 
+**loadProblemSet (加载专辑所有题目)**  
+parameter:无  
+return: problemSet
+
+4. 
+**finishProblemSet (完成专辑测试)**  
+parameter: boolean（测试通过 or 测试失败 )  
+return: 无  
