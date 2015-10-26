@@ -4,7 +4,7 @@
 + parameter:请求参数  
 + return:默认都会返回true||false，需要有回调数据时会返回回调的数据
 
-####1. loadProblemContext (加载做题需要的全局数据)
+####1. loadProblemContext (加载做题需要的全局数据)  
 parameter:
   (无)  
 return:  jsonObjct
@@ -30,3 +30,11 @@ return: problemSet [problemSet scheme](https://github.com/guanghetv/onions/blob/
 ####4. finishProblemSet (完成专辑测试)
 parameter: boolean（测试通过 or 测试失败 )  
 return: 无  
+
+####5. loadProblem (加载题目)
+parameter: String（"succeed" or "failed" or "" )  
+return: problemObj  
+
+####6. loadImage (加载图片)
+parameter: String（图片的url)  
+return: String (图片的base64编码)  
