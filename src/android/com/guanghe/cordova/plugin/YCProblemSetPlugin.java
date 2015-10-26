@@ -20,10 +20,12 @@ import org.json.JSONObject;
  */
 public class YCProblemSetPlugin extends CordovaPlugin {
 
+
+    private JSONObject problemSetJO;
+
     /**
      * 图片mock数据
      */
-    private static String imageBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAF0JJREFUeAHtXXuMXFd5P+e+5j07O/vetXftxA+cmASrIY/GiQkJKAWCCkiAeLVVoRTaRqjijwo1rVqhSm3zR0okSEoFbSVQRR9IQFtKVSXBgUAImJI4jmNje9dr7653dt537vve/r47c3fvzM6ud+OZ9Wy6R5qd+zj3PH6/73zfd75z5i5n66TDj50bUSLmMYELRzljuzzGhjgXYus8snPLc2sAIQesZl3PfdY0lGde+swNC2sBA1xXpyNfODMkKPyT3HPfzQVBWJ1j58pGEfBc1/W48C3X9J488fD+xdbnVhFw5IunjomC+PkdSW+F6hrPMTJs13nkxKcPPRMuqYmA27509oMe8z4rCE2Xw/l3jq8BAYwFxhl/9IVP7funoJhl9UKSvwN+AEt3vkmwCWPCOqjBF3XS+aLi/duO2glg6fI3qSOTv49sgj8CfIO74910GfVQ8VyIE+Z0hZOrGY3Y397xdkIAbcEheUe6IT0kkJ//egCfQ5nGRUfcAuw6UgVh7s+xaJLVkRKvcyFRrotj0qnUdW7Gpqon7Mnh3LWpp3o0c7+Ui/Y5ZxM92ry2zSLsBQovtL27zS6OKtMJrl+ObKdmE/bC68X1HOTnU9yubhsbQIJC2C9PxLaT5LS2NSa7QtK9mHBtddv1Z9s1uBV8Oh+LLcUktyALrgWb5s8t22XryWuvCwLGo7NJ17WYwA3M9q1txcDrgoBRZSZVq2lMYpYoeta26tO2amw7HZKULSntXYrrms4EZgkiM7ZVn7ZVY9sRMJFYinGrIFu2wwTP4aKnXbVPInd7Rk1dtbHtOr1V1yi8AD953er2JC4lTUtjiPMyDvUjedq6ruiQeyoZc3PKuoVu4c2eJoBwyHiXY2tRQNyMxy+nKpUqfGqQhd6AgDX71OddiA1qxweqLGtuIcbrVrVmY9d9aotuepBqyVuSMu65eLsq00pNTvPFmFpVcRsOKHojM1Vql1dhqnig8sTeJeFQmXEJJfdG6mkCCKIKGzVGtKcH242CyUQuLniqZBomRgAIwEf0aqtUkMA8fpP2t3scvSouKreXegP6eit6ngCND5qyW5T7tZ/0tQK3Jz2XMgyNuY7j3yI1pLQhYJ/xjbEB7xeZK8rdOU+MuK3lXM/znieAwClHbipPVP51nLEV70XgHp+IXkmWS+Um/AS3OR40YR/PTljfHcsXPDefvC/flLkHTrYFAUvykXKczcWGqk9lA8yykbKSlouxchkEkOj7yYMN0JdtQNY7k9hnfn3SsmxWkm8u1aRRI3i+V763BQGqMGKY0anaaOmbY4GbOZm4kpBFS9AwAybd38CfiW7FtwGSZwh7S1+esrWqWC07rJC6P9croIfbsS0IIG+oEntTsS9WjgyX/3OQOrAX+t80dGaadQNM1yifzAyfgJHa9wYVcy62OF9jVXdYK8duqVCeXkvbggACbUm+tYw9fl628N2RhJdTxmKFRLlcYVjbXsaUfEvu1kTFrUgj6vdG1KrJDB3SnziWc+DQLmfsoYNtQ0CZT2m2PGIoYlk+VPvHqXRUVyrQ/x6JfSPRsSS4fHft2yOym1eqZZOZ0b1qfvAdPal+qNnLBivoRK9+O57kqdFD5ZR2KWoXT6S1SoRVKhXMfsn/r6sfD1v/FMycs+qFeKlgMMsW3dK+T1z0hN5yPcMYb5sRQI1eEm8pS7LIdM1gcwvnWaFQZpWyhXMHqgib/jAYyEhbRk3QNZvVRn7tSi15E02TezZtmxFACBaEg6or9Vmca3JVrdtU0vGODeSxK1+SBCbLAlMrUD3yLq0w/qH5nkW+0bBtNQIMnrSvSL+Sn9w9zvZPHmaO57K3H5xg7z84xixSP4gH2RgNus684tTHL7pirD5F7mEWttUIIBy94XcWPv7APcP9mQF+qD/D9puLzLmUZzODKXbkwDDTDJv96YkDC7X0m3rS7WyVhW1FwHvfYAx8+Nb42HAywe3KNLu5z2G18wbzYhH23v4+pkQV5g6l2EfkKfbPhbKcs9NWa4d77XxbELA7bUcevsOYuHvK7fdo4bE6z4T8C8xEHMizoGUkkfF0guln80y5oZ99dPeJ0bcPnMr+e/HI4j8s/OqCBQ+q14AP2tPzBJDU/9YRY2IkJck1A2DbcD2Xnse3zpwqQjsUhYD7w9NRxssyM3+ZZ+SOZgcc5ePjP5y4NTad+svLD03PGpmeWYQJwKdvceKhh38nfKFXjif7HOWRY/rUB99oj0UkTzRMG0DbTMj9iDGrwFzTYfZSdSUQh8kAVyRY3xpzSyAGxzZc1sl4JXJ36nT/vNmnTxuDPReM60kCHjpgZP/4mL738IiQ1LHYEkQbONQO1y5DbCTmFFTm1iDUQSAOksNlDGisDXi47pYNJkRE5kQk1ieZ4j19r2Zl7nj/W9tT7SV91FMqaDzpKL9/uz5xbK/jh51r8Cf9hLVGXvwF4+o0UEasDTsgnCru0d7upgRV1J9kjO4hjzVdxMTMY+ZAHJbD5r899tzEPmUh/teX3zGTd5IYUtc/9cw8gKT+S++qHXxgH8/aBB5i+H7iEuOVs4yXXqmDD4l3VBPGtw1+EG1SQ0KmsUsdcTp7usScHNQSCiMX9S2D5/r/ZvfXDtwaudgTW9mvuwoaT9rK5+7VJz98izUeVxh0fchWkrRD5QhLLwBZogN/QICdq9QJCKkfnyz6QyREZeapUPdOPVJK6ohjliwkFRDrsoGIIR+VX+nXXcU+ZY7TL9uvW7quKuhd+43sJ24zJ8ZSoqLBwwlHNn1VYxbq4GPG6+t6AO4ZFnO1Zt2/Cj3sTxGyKebMYQWyQZI9g5UzFCOOJJjpOiymGOIfDP73FKmkxwtvm9Vcpc7WqsK6e+G6EDASd+Xfe7M28dYb7QFazVrW9UFfaX+JrcLj+TGkGPqczilhAPi6nyR7lf6vZ/H/kluahFuaiGIk0PM0clDkLEjAPXE0yVzJZZ7J2bv7Xxrao+Rijy69c/qcOYjMW5u23AY8eKPe/6WH1IMPHuQDDoBc1vXL/QZSrs340k/gbmIHSQA+3Ud+p9IAdDn/GgcAnUZBMAL8XETCpTJGRgUDDCeyx2qwC4fjc8m/Gv36gfvipzJrlNa1y1tqA973BnXgc8fcvQnFk5p0fVP34M8XfsZ4bRbg+auL9bsA1IVed4qILpNEbyD5bikMuqeHVBaVU6lPB8RMhKYWzEY0NSnZ4tHE6f4ot9gJfUqllwpsRdqyEZBRbOkDNxXGSM+vlvpGVwE4L73MePV8M/iN204Fe0A3lRC4yMItFUNE0vMgwblcYfblMuYK9QItG2rNdflHB54f/4uRb9wwJFbkTVX1GjNvGQHvP5QbmhwQI2Y795EaT+BXzyGccGo1+BBGDzNhpwbJ3aD0+3jQjIvc0n54nCC+KcGGOHNV5syX4CHV77jIQ67q0dR05rHxrx3YH1mINj3ThZMtIWA8aSnvPFAeNtC5tsl3N+ehen7e9rYvsf7k6jU4KogLCX0gQIFAtyPhisqcBbI1K1WTXbgxXo5+IPXcyMrV7hxtCQEfufnK6FBalMjorkpkZM0i3E0YXRjfJiSCzADRqUL9hEAKbm3oWxSYOABV1C7BZXXmrmAkzMGzWlFVqm6zI5HzmQGp1lVPsesEHMxqsbfuVQd0nULzLdUR+I4G8MndJIBb7hNgZDTh93s0ejajfsJgQ/J5MsZ4HBqldRQgn1srMvvCOai5FRXngPThmCndGz3ZVc+oTY/DLb/2448dzo2lE9gsQhG1JgAhzr67iVkuRkBb8BvVO2WQ0wa4TbUOdQs0CsJtwLFnYf3SrDJPqzFndgYysgIJ2YT7Ei9nw49sqs4NZF6pbQOZN5vl9tFq6q5JPaPRzLU1AX/S+VzD0A+7m8v5KAM2lsM78We+5MkQOPR5LYjQKMDKmZDGTw0g3fUEAtQCzrHOgHLtyxeZV8VKZmMkmljsORCZTx6Q57r2osKuESBi9/LH3pgbU2TsY25IL2Sw0W9yN0/5Xk8z+HXQgQBUks64jvXemZeZ8eJJZp8/D109x9xCAdKKEdHYkr5MyobIAQkULcUKGiXPNpir0+beBqmWieDdOb96/z54SkYYf1viRT866z/U4T9dMzD37yllbhm3UjqMWVPy3c3zvr9fB59Ax4fiPRR2MAGIAa/EphgZxfYR98/lmBuEHigvRgOXECVVsA8iipBD+EPXZHg8NGLCIyUQAqwPULTUzUPtQPczB7YpsD0wws7iAhPzS5g/DGBkuMxE8O7O2Jn+rxTeMldjnY8XdYWAqOgKH7p5aWxZlAIGBICmL0D1nKh3mkCxIc0EutkAndQBjQACz1c3kE5funEeJADjGViMx4fR9vQgUT4iBwszXIHohomJ4LxBjoBR4FVqPgF4XwMFUFcS1BMZZKUPthdtsOG57YpUInfEz6Sfqt0MxjqbukLAew4WBvYPs5imhTYlAHyspjOew3ouAW5B1xr4JgK8EOiBNF6tn4F0B99BfloRs22Ai3LDCeTQqMHOLSbEYkzDD/ts5FGwbCniHnHnJxy4pQLmBnNYr93tqzoRcaMHkiez24KAbNSWfv1AfhQY1KWYACJQVPw2bvE5rFZN4xySSyonkPSNgl6H6Op/qc5WYvCUZ0Eg8DGxp3QJ2xrJFgvcxqDhTMZcIUI76/CRqMkXLzBxaBj2AhveYYzfqMykJ+Sicsnq7OJ+wPvVO7XBHB+8KT88OaQoFhZWvFoFE5yLGNKnYURfYvzSD9GzhmQS6G1ACldDqkGIQWoBSkcS6sOrwlgFe0vJxaTqqQ7LoagotrGrFlvE4s0itrUvIkRROXUaeTzk5Swbc8T7Eif7O9KOUCEd6lm9xBvTteiDY7PD6oWzABygT5+BAZ1HNBK/YkHYkasz2MN5BcBvsFqIqBCHyoiChIYRDbV904e09qBDMGo6VshC5IMHn4zgkoXo6GIhhvWDl5jw6v+AoRqzXYHdG3k5K4Z+p7bpBrR5YINItHmyzaVRqaDEF8+I1pU5GMiGpJNyxYe7cCvxRhNevlC3ARskgZYSxZRS11ht6tzMJXKHKwhpBG5x22ch7Sp+kcYcgaVSUFm5GSa8/B/Mys+yvYlS7NbYDAJLnUsdJeBnxeHqrBrTZQp8BeLktxVD3yVCYGzh5fDiWRzS5Ixkb/1ExUiI219rIolX8UIPAzYgLP3hcj2AXy3HmGnILBY1YKBhzMn91RAxPfU9Fs+d5A8kTmbDz1zrcUcJ0FzZfb40XqQt4s0JBDjw6/21XdyzVMwDMOHZQCLNI/bBhQzmARt4pl0WG45AJfyDvpZMBL4K8C2TlgE4Sybw9hV6ox4lkgKMXvPV4+yOS1/NTAoL1y4R9ZKDqWnjrANfTxX2FFTd8cIDAOYOBMAF9TeHUIdAgrYIj2i2frxevWBASMjw4fFMA4/1sre7RxJfUTU4Y+R5rU5h8Mno0icVb1keRhnoFRuv/Fx+0PxOx0ZBq6iubt0mr5yuDdbO1jKqQrvUQok7LT9UAQm8MsOYjljMevYAoNMONxEkvBZDTOAbprXK8AZNq4Mfh+Rj8gbgKUmiw+IxTPQAeDhFRI+dFfZr3xDeB+npTOo4AeRb/6CwuxB+BT69M1zACFglwJBuXoI9wEZbf5iv0SdaQBfTWL9dVcAaD4Quk8Etq5j1tnm4Gfz6Q+RyxqJmXf+H6iMNaPCo93j6T2aKQqYlvhKqcJOHHSeA6j9enCoWEN1dIcGFCqIR0CxRPugA3zfK/sRs7dbTAvpmU93wGv4IaDW8zeCHkMZhMoE1ikD/NyolT/ib8d+Yf166CzuCO5e6QsBlI2merA2VI4EaQqih7gW1EED9IPVjQA2VZ9ZURSS85IqSS7qZ5MDwVtsY3hXwETdqqJ2gXLJdvv4PcULgvyTeon4l8XDHf3O2uR4FrdzA99P5PXnHH/bkgsL181e82hBAZZE9UC+tPUnzJ2SIYkYR4WyjSto1xze8AJ+8n3Dy8L4PtRTo/PCd+rEs2XX93xittH2oypPOY6k/m9FY53/u2jUCni/uqsyrsilS7N2Dz0+fVhXU0n9ePg8Xlfb8r24Wp6DZBidkgeFVEXJYVj0AksCvYpJlWSsGN9yEFf2P2FVjBCgIDH09/rtzL0uHu7KHdHVPwy26huOyIzk/rYwVSQ2R9HP3agQAIUzOfHuAEdNKFqkGmg9sJK0yvA3waYZrW6vVznKZAD0F/z9QSzE4Xi8Id5S/Fv8E4ifdSV0jgJr7VH5PQbM8T6BZsB9yvkonSPJNbBssXWjFH8/DPfQnZOuXQRJPsR5yPQPpx8sUWZXUjg/+2s8Tyck4tbUe/8uzrP1Y5s9n6H2Maz91bXe6SsCL1RH1gprSFIEmNe0nQauaTyTUYOvUuSZVRFItJDEhgypa7c+ulEKGlyZdPvhNkk9qZyVf6xEhTKGHOFxQOhbhd3419Yez54W9iJ13L3WVABtvN3muNFmQGQBZD7XW/gEpP2hHS5OBPQAqFBWlWfGygm55jkCv1PS64SXwSfJ9nb+O2mmUQZ4R+f8ySIhB739feVvhm9EPLLVU0fHTrhJArX06P1msVosuSdTGE/Ji2bEetCMBrD/rT8jIELdRCAS+iUAbBdzo2G2Ab/sGdwM1g4AU/H8FA2yOj5mPpx652K6eDZS0qSxdJ2BaS+jPl3cVXDHqRSIcq06AcyNcUCYszPPSL9GhFcTXiozWDS9FXLGAQq7m1QxuC0xccH0CXGwaeCL1RxfnhdHQempL5g6ebsn29Gf0e0rPWfcWC07WjDBTSPGSHIu4/ryKpGwF3paeEQlYDPHVUASL5JSQ2bzU/BYCkngNhreK7SoeFk7UcqLh7dQfudpfaoMiO2z/rjz7r8h7cn8f/9Sa/3zzamVt9j5/85NnsTVt6xK0Ozsovxo7GvlB+k7leOZG4dV4QtGxEo5t64iwUCypXfKyb2AsOuiv61aevYTNWsjcGEm0vJgrlKCCvBD4axTUpnDS/2PZKovcGNU/lfmX00Xe17FYT5vqmi41hyybbnXnBG/1Ya9Y+zX6/B37zYV98rno0cjx9J3yDzL7xVcSqQhePbyKDATtir9k3iD2dypxTMhkbFWvu5kk/VVVhduJdd1KIPntwSe+aFCRORJxQM9iORguguJqfRHry+nPzmwl+ITwlo+A9Wi9QZqO3B39Yfou+fsg41SiT1FFsrj+yKBYfqSPseHDTDtdxCePzcx4bwQ2Vi3kqqwCP9+xEdJojAr68oHGH/omKTdQhCan7Gps0FyMj+tXknu0+eRebSE2YRRjI6YmRDfoK6/Xi83d6ykCwk2fki8rdynH03crz2YOiieTGRmvo8Rkzo5PME0dZepPLmNjHWeLeZXlF+HjuxJ8d5QABujHLhrekKtGsmYhOmIsJia1+dQefT4xqeeiE0YlkrHbhafD9W/Vcc8SEAZgQppX7or8KHW38nTmJvnFZDrWL1V+akHqTXZ2BpvcpKxdiQ0ZufgufSExpS2kb9AWouNmMTJgmULntxOG23atx9uCgHAnx8R5+f7YjzOHa5fS31k6lJ+RpvQlqA9VSjSHPcMP9fAxv+2JV4+/Xv6XWA/j3L5p+Le2ZJ86tr7Zvpadq+sgkKMw3+w6GXZudREBwl5wPffZLtaxU/Q6CBD2gmkoz9A/F14n386tLiBAmBP2wkufuWHB48K3ulDHTpHrIECYE/Z+NNQ1vScRxerKmuc6bfj/ewtY+5gDAZ+AEw/vX7Rd5xF6//JO6i4ChDFhTZhTTcvrASc+fegZhKce3SGhewQQtoQxYR3UQjGrpnTki6eOiYL4+Z3JWRMs134CteNLfgh8KnQVAXTxyBfODAkK/yT33HfjJz3Lo4Tu7aTNIUDeDhlc0vmB2gmX0JaAIMPhx86NKBHzmMCFo8i4CxZiaGdkBOi0//Y8VwNWizTJIj+fXE3ydtrnZuz/AEkZt4GpbXEFAAAAAElFTkSuQmCC";
 
     /**
      * action name
@@ -32,6 +34,9 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private static final String ACTION_LOAD_IMAGE = "loadImage";// 加载图片
     private static final String ACTION_LOAD_PROBLEM_CONTEXT = "loadProblemContext";// 加载做题的一些元素数据
     private static final String ACTION_CLOSE_PROBLEM_SET = "closeProblemSet";//退出做题
+    private static final String ACTION_FINISH_PROBLEM_SET = "finishProblemSet";//完成专辑测试
+    private static final String ACTION_LOAD_PROBLEM_SET = "loadProblemSet";
+
 
     /**
      * 维护做题状态
@@ -45,12 +50,19 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-
+//        String arg = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
+//        if (arg != null) {
+//            try {
+//                problemSetJO = new JSONObject(arg);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
         /**
          * 初始化做题状态
          */
-        cLevel = 1;
-        cNumber = 1;
+        cLevel = 0;
+        cNumber = 0;
         cBloods = 4;//mock
         maxLevel = 3;//mock
     }
@@ -69,6 +81,12 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         } else if (ACTION_CLOSE_PROBLEM_SET.equals(action)) {
             closeProblemSet();
             return true;
+        } else if (ACTION_FINISH_PROBLEM_SET.equals(action)) {
+            finishProblemSet(args, callbackContext);
+            return true;
+        } else if (ACTION_LOAD_PROBLEM_SET.equals(action)) {
+            loadProblemSet(callbackContext);
+            return true;
         } else {
             callbackContext.error(action + ":action not define!");
             return false;
@@ -80,6 +98,47 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      */
     private void closeProblemSet() {
         cordova.getActivity().finish();
+    }
+
+    /**
+     * @param args            arg
+     * @param callbackContext 回调
+     */
+    private void finishProblemSet(JSONArray args, CallbackContext callbackContext) {
+        if (args == null) {//参数为null 返回
+            callbackContext.error(" args is null ");
+        } else {
+            try {
+                boolean isPass = args.getBoolean(0);
+                if (isPass) {
+                    Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试通过", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//                    cordova.getActivity().startActivity(intent);
+//                    cordova.getActivity().finish();
+                } else {
+                    Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//                    cordova.getActivity().startActivity(intent);
+//                    cordova.getActivity().finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @param callbackContext
+     */
+    private void loadProblemSet(CallbackContext callbackContext) {
+        try {
+            problemSetJO = new JSONObject(setMock);
+            callbackContext.success(problemSetJO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            callbackContext.error(e.getMessage());
+
+        }
     }
 
     /**
@@ -115,29 +174,40 @@ public class YCProblemSetPlugin extends CordovaPlugin {
                 callbackContext.error(" args is null ");
             } else {
                 JSONObject resultJO = null;
+                int preLevel = cLevel;
+                int preNumber = cNumber;
 
-                if (cLevel == 1 && cNumber == 1) {//判断下是不是第一题
-                    resultJO = pickProblem(cLevel, cNumber);
+                if (cLevel == 0 && cNumber == 0) {//判断下是不是第一题
+                    preLevel++;
+                    preNumber++;
+                    resultJO = pickProblem(preLevel, preNumber);
+
                 } else {
                     String arg = args.getString(0);//获取请求参数
                     if ("succeed".equals(arg)) {
                         //答对，level++，number重置为1.
-                        cLevel++;
-                        cNumber = 1;
-                        if (cLevel >= maxLevel) {//判断是有已经做完所有level
+                        preLevel++;
+                        preNumber = 1;
+                        if (preLevel > maxLevel) {//判断是有已经做完所有level
                             Toast.makeText(cordova.getActivity().getBaseContext(), "专辑完成", Toast.LENGTH_LONG).show();
+//                            Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//                            cordova.getActivity().startActivity(intent);
+//                            cordova.getActivity().finish();
                             return;
                         } else {//否则继续给题目
-                            resultJO = pickProblem(cLevel, cNumber);
+                            resultJO = pickProblem(preLevel, preNumber);
                         }
                     } else if ("failed".equals(arg)) {
-                        cNumber++;//题号++
+                        preNumber++;//题号++
                         cBloods--;// 血--；
                         if (cBloods < 1) {//血掉完，退出做题
                             Toast.makeText(cordova.getActivity().getBaseContext(), "做题失败，下次再来", Toast.LENGTH_LONG).show();
+//                            Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//                            cordova.getActivity().startActivity(intent);
+//                            cordova.getActivity().finish();
                             return;
                         } else {
-                            resultJO = pickProblem(cLevel, cNumber);
+                            resultJO = pickProblem(preLevel, preNumber);
                         }
                     } else {//默认其他参数,返回
                         callbackContext.error("不是加载第一题 ,参数非法");
@@ -146,6 +216,8 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
                 if (resultJO != null) {
                     callbackContext.success(resultJO);
+                    cLevel = preLevel;
+                    cNumber = preNumber;
                 } else {
                     callbackContext.error("load error");
                 }
@@ -164,10 +236,11 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      * @return
      */
     private JSONObject pickProblem(int level, int number) {
-        if (level == maxLevel)
+        if (level > maxLevel)
             return null;
         try {
-            JSONArray problemSet = new JSONArray(problemMockData);
+            JSONObject problemSetJO = new JSONObject(setMock);
+            JSONArray problemSet = problemSetJO.getJSONArray("problems");
             int count = problemSet.length();
             int tmpNumber = 0;
             for (int i = 0; i < count; i++) {
@@ -191,17 +264,6 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         return null;
     }
 
-    /**
-     * 验证是否传了参数
-     *
-     * @param args
-     * @param callbackContext
-     */
-    private void validateArgs(JSONArray args, CallbackContext callbackContext) {
-        if (args == null || args.length() < 1) {
-            callbackContext.error("args is null!");
-        }
-    }
 
     /**
      * 加载图片
@@ -216,7 +278,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             callbackContext.error(ACTION_LOAD_IMAGE + " args is null");
         } else {
 //            String s= args.getString(0);
-            callbackContext.success(imageBase64);
+            callbackContext.success("");
 
 //            try {
 //                JSONObject jo = args.getJSONObject(1);
@@ -253,7 +315,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private String problemMockData = "[{\n" +
             "    \"topicId\": 0,\n" +
             "    \"id\": 0,\n" +
-            "    \"body\": \"狗蛋今天刚学完用配方法解一元二次方程，有些步骤他记不清了，怎样才是正确的移项呢？<hr /> <img src='/images/demo111.png'>\",\n" +
+            "    \"body\": \"狗蛋今天刚学完用配方法解一元二次方程，有些步骤他记不清了，怎样才是正确的移项呢？<hr /> <img src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-LX-AAS-J1.png'>\",\n" +
             "    \"type\": \"single\",\n" +
             "    \"choices\": [{\n" +
             "        \"body\": \"$x^2+11=-12x$\",\n" +
@@ -667,4 +729,149 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "}]";
 
 
+    private String setMock = "{\n" +
+            "  \"_id\": \"5627355e14db95ec4d49cf76\",\n" +
+            "  \"deleted\": false,\n" +
+            "  \"createdAt\": \"2015-10-21T06:49:02.275Z\",\n" +
+            "  \"updatedAt\": \"2015-10-21T06:49:02.275Z\",\n" +
+            "  \"bloods\": 3,\n" +
+            "  \"name\": \"myBaby123\",\n" +
+            "  \"desc\": \"first create\",\n" +
+            "  \"challengeAmount\": 5,\n" +
+            "  \"__v\": 0,\n" +
+            "  \"problems\": [\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 1,\n" +
+            "      \"body\": \"已知：如图所示，$D$是$AC$上一点，$BC=AE$，$DE//AB$，$ angle B= angle DAE$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DAE$的判定依据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-LX-AAS-J1.png'></probimg></div>\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"3\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"6\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 1,\n" +
+            "      \"body\": \"单项式−a2b3c的系数和次数的和是（ ）\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627359414db95ec4d49cf79\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"3\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"6\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 2,\n" +
+            "      \"body\": \"已知：如图所示，$E$、$B$、$F$、$C$在同一条直线上，若$ angle D= angle A=90^circ$，$EB=FC$，$AB=DF$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DFE$，判定全等的根据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-HL-J3.png'></probimg></div>\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"13\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"61\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 2,\n" +
+            "      \"body\": \"已知：a=2，b=3，则(−2ab+3a)−2(2a−b)+2ab的值为（ ）\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"13\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"61\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 3,\n" +
+            "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"13\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"61\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"level\": 3,\n" +
+            "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
+            "      \"type\": \"single\",\n" +
+            "      \"flag\": \"practice\",\n" +
+            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
+            "      \"choices\": [\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"13\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": false,\n" +
+            "          \"body\": \"5\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"correct\": true,\n" +
+            "          \"body\": \"61\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}";
 }
