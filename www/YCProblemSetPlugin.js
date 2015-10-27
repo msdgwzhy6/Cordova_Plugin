@@ -12,14 +12,14 @@ YCProblemSetPlugin.prototype.loadProblem = function (url, options) {
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblem", [url, options]);
 };
 
-YCProblemSetPlugin.prototype.loadProblemContext = function (url, options) {
+YCProblemSetPlugin.prototype.loadProblemContext = function (options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemContext", [url, options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemContext", [options]);
 };
 
-YCProblemSetPlugin.prototype.closeProblemSet = function (url, options) {
+YCProblemSetPlugin.prototype.closeProblemSet = function (options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "closeProblemSet", [url, options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "closeProblemSet", [options]);
 };
 
 YCProblemSetPlugin.prototype.finishProblemSet = function (url, options) {
@@ -27,9 +27,9 @@ YCProblemSetPlugin.prototype.finishProblemSet = function (url, options) {
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "finishProblemSet", [url, options]);
 };
 
-YCProblemSetPlugin.prototype.loadProblemSet = function (url, options) {
+YCProblemSetPlugin.prototype.loadProblemSet = function (options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemSet", [url, options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemSet", [options]);
 };
 
 
