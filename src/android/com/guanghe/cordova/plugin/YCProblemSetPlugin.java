@@ -129,7 +129,14 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 //                    cordova.getActivity().startActivity(intent);
 //                    cordova.getActivity().finish();
                 } else {
-                    Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败", Toast.LENGTH_LONG).show();
+                    String setId = args.getString(1);
+                    if (TextUtils.isEmpty(setId) || TextUtils.equals("null",setId)){
+                        Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败", Toast.LENGTH_LONG).show();
+
+                    }else {
+                        Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败"+setId, Toast.LENGTH_LONG).show();
+
+                    }
 //                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
 //                    cordova.getActivity().startActivity(intent);
 //                    cordova.getActivity().finish();

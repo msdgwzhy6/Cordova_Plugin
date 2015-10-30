@@ -22,9 +22,9 @@ YCProblemSetPlugin.prototype.closeProblemSet = function (options) {
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "closeProblemSet", [options]);
 };
 
-YCProblemSetPlugin.prototype.finishProblemSet = function (url, options) {
+YCProblemSetPlugin.prototype.finishProblemSet = function (pass,setId, options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "finishProblemSet", [url, options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "finishProblemSet", [pass,setId, options]);
 };
 
 YCProblemSetPlugin.prototype.loadProblemSet = function (options) {
