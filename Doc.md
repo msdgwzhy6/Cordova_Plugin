@@ -10,7 +10,7 @@ parameter:
 return:  jsonObjct
  ````
 maxLevel: String,
-type: String,
+type: String,（"c"挑战题 "p"专辑题）
 bloods: Number,
 currentProgress: Number,
 totalProgress: Number
@@ -24,11 +24,22 @@ return: 无
 
 ####3. loadProblemSet (加载专辑所有题目)
 parameter:无  
-return: problemSet [problemSet scheme](https://github.com/guanghetv/onions/blob/master/src/models/problemSet.js)
-
+return: 
+练习题:problemSet [problemSet scheme](https://github.com/guanghetv/onions/blob/master/src/models/problemSet.js)  
+挑战题:  [{
+        problemSet: id,
+        type: 'single/multi/blank',
+        choices: [{body: String, correct: Boolean}],
+        body: String,
+        prompt: String,
+        explain: String,
+        blank: String,
+    }]
 
 ####4. finishProblemSet (完成专辑测试)
-parameter: boolean（测试通过 or 测试失败 )  
+parameter: 
+boolean（测试通过 or 测试失败 )  
+String (挑战失败时，失败的setId,没有时传空字符"")  
 return: 无  
 
 ####5. loadProblem (加载题目)
