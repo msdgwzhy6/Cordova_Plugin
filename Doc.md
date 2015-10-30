@@ -39,7 +39,7 @@ return:
 ####4. finishProblemSet (完成专辑测试)
 parameter: 
 boolean（测试通过 or 测试失败 )  
-String (挑战失败时，失败的setId,没有时传空字符"")
+String (挑战失败时，失败的setId,没有时传空字符"")  
 return: 无  
 
 ####5. loadProblem (加载题目)
