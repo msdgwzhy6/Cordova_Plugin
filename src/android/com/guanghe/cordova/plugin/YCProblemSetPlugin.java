@@ -124,17 +124,17 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             try {
                 boolean isPass = args.getBoolean(0);
                 if (isPass) {
-                    Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试通过", Toast.LENGTH_LONG).show();
+                    Toast.makeText(cordova.getActivity().getBaseContext(), "测试通过了!!!!", Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
 //                    cordova.getActivity().startActivity(intent);
 //                    cordova.getActivity().finish();
                 } else {
                     String setId = args.getString(1);
-                    if (TextUtils.isEmpty(setId) || TextUtils.equals("null",setId)){
-                        Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败", Toast.LENGTH_LONG).show();
+                    if (TextUtils.isEmpty(setId) || TextUtils.equals("null", setId)) {
+                        Toast.makeText(cordova.getActivity().getBaseContext(), "专辑失败", Toast.LENGTH_LONG).show();
 
-                    }else {
-                        Toast.makeText(cordova.getActivity().getBaseContext(), "专辑测试失败"+setId, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(cordova.getActivity().getBaseContext(), "挑战失败:失败专辑=" + setId, Toast.LENGTH_LONG).show();
 
                     }
 //                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
@@ -320,6 +320,14 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "  \"createdAt\": \"2015-10-21T06:49:02.275Z\",\n" +
             "  \"updatedAt\": \"2015-10-21T06:49:02.275Z\",\n" +
             "  \"bloods\": 3,\n" +
+            "  \"hyperVideo\": {\n" +
+            "    \"_id\": \"hvideo_1\",\n" +
+            "    \"name\": \"测试的讲解视频\",\n" +
+            "    \"url\": {\n" +
+            "      \"moblie\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\",\n" +
+            "      \"pc\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\"\n" +
+            "    }\n" +
+            "  }\n," +
             "  \"name\": \"myBaby123\",\n" +
             "  \"desc\": \"first create\",\n" +
             "  \"challengeAmount\": 5,\n" +
