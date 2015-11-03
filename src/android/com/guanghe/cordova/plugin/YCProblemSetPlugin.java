@@ -322,9 +322,13 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "  \"bloods\": 3,\n" +
             "  \"hyperVideo\": {\n" +
             "    \"_id\": \"hvideo_1\",\n" +
+            "    \"video\": \"videoId213131\",\n" +
+            "    \"titleTime\": \"10000\",\n" +
+            "    \"finishTime\": \"10000\",\n" +
+            "    \"duration\": \"10000\",\n" +
             "    \"name\": \"测试的讲解视频\",\n" +
             "    \"url\": {\n" +
-            "      \"moblie\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\",\n" +
+            "      \"mobile\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\",\n" +
             "      \"pc\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\"\n" +
             "    }\n" +
             "  }\n," +
