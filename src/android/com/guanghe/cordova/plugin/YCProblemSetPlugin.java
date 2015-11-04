@@ -244,6 +244,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "  \"problems\": [\n" +
             "    {\n" +
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
+            "      \"prompt\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 1,\n" +
             "      \"body\": \"我是填空题,答案是2012\",\n" +
             "      \"mType\": \"blank\",\n" +
