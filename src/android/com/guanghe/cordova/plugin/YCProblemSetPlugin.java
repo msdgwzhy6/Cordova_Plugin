@@ -22,7 +22,8 @@ import org.json.JSONObject;
 public class YCProblemSetPlugin extends CordovaPlugin {
 
 
-    private JSONObject problemSetJO;
+    private JSONObject mPracticeSetJO;
+    private JSONArray mChallengeSetJA;
 
     /**
      * 图片mock数据
@@ -38,43 +39,41 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private static final String ACTION_FINISH_PROBLEM_SET = "finishProblemSet";//完成专辑测试
     private static final String ACTION_LOAD_PROBLEM_SET = "loadProblemSet";
 
+    private String mType = "p";
+    private int mProgress = 1;
+    private int mTotal = 5;
+
 
     /**
      * 维护做题状态
      */
-    private int cLevel;//当前做题级别
-    private int cNumber;//当前做题序号
-    private int cBloods;//当前血量
-    private int maxLevel;//总levele
-
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-//        String arg = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
-//        if (arg != null) {
+//        String argSet = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
+//        boolean isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE_TYPE, false);
+//        mProgress = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_CURRENT_PROGRESS, 0);
+//        mTotal = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_TOTAL_PROGRESS, 0);
+//        if (isChallenge) {
+//            mType = "c";
+//        } else {
+//            mType = "p";
+//        }
+//
+//        if (argSet != null) {
 //            try {
-//                problemSetJO = new JSONObject(arg);
+//                if (isChallenge) {
+//                    mChallengeSetJA = new JSONArray(argSet);
+//                } else {
+//                    mPracticeSetJO = new JSONObject(argSet);
+//                }
 //            } catch (JSONException e) {
 //                e.printStackTrace();
 //            }
 //        }
-        /**
-         * 初始化做题状态
-         */
-        cLevel = 0;
-        cNumber = 0;
-        cBloods = 4;//mock
-        maxLevel = 3;//mock
-//        int x = (int) (Math.random() * 100);
-//        if (x % 2 == 1) {
-//            type = "p";
-//        } else {
-//            type = "c";
-//        }
     }
 
-    private String type = "p";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -94,7 +93,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             finishProblemSet(args, callbackContext);
             return true;
         } else if (ACTION_LOAD_PROBLEM_SET.equals(action)) {
-            if (TextUtils.equals("p", type)) {
+            if (TextUtils.equals("p", mType)) {
                 loadPracticeSet(callbackContext);
             } else {
                 loadChallengeSet(callbackContext);
@@ -152,8 +151,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      */
     private void loadPracticeSet(CallbackContext callbackContext) {
         try {
-            problemSetJO = new JSONObject(practiceSetMock);
-            callbackContext.success(problemSetJO);
+            if (mPracticeSetJO == null) {
+                mPracticeSetJO = new JSONObject(practiceSetMock);
+            }
+            callbackContext.success(mPracticeSetJO);
         } catch (Exception e) {
             e.printStackTrace();
             callbackContext.error(e.getMessage());
@@ -163,8 +164,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
     private void loadChallengeSet(CallbackContext callbackContext) {
         try {
-            JSONArray array = new JSONArray(challengeSetMock);
-            callbackContext.success(array);
+            if (mChallengeSetJA == null) {
+                mChallengeSetJA = new JSONArray(challengeSetMock);
+            }
+            callbackContext.success(mChallengeSetJA);
         } catch (Exception e) {
             e.printStackTrace();
             callbackContext.error(e.getMessage());
@@ -181,11 +184,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private void loadProblemContext(JSONArray args, CallbackContext callbackContext) {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("maxLevel", maxLevel);
-            jsonObject.put("type", type);
-//            jsonObject.put("bloods", cBloods);
-            jsonObject.put("currentProgress", 3);
-            jsonObject.put("totalProgress", 5);
+//            jsonObject.put("maxLevel", maxLevel);
+            jsonObject.put("type", mType);
+            jsonObject.put("currentProgress", mProgress);
+            jsonObject.put("totalProgress", mTotal);
             callbackContext.success(jsonObject);
         } catch (JSONException e) {
             callbackContext.error(e.getMessage());
@@ -198,101 +200,9 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      * @param args
      * @param callbackContext
      */
+    @Deprecated
     private void loadProblem(JSONArray args, CallbackContext callbackContext) {
-        try {
-
-            if (args == null) {//参数为null 返回
-                callbackContext.error(" args is null ");
-            } else {
-                JSONObject resultJO = null;
-                int preLevel = cLevel;
-                int preNumber = cNumber;
-
-                if (cLevel == 0 && cNumber == 0) {//判断下是不是第一题
-                    preLevel++;
-                    preNumber++;
-                    resultJO = pickProblem(preLevel, preNumber);
-
-                } else {
-                    String arg = args.getString(0);//获取请求参数
-                    if ("succeed".equals(arg)) {
-                        //答对，level++，number重置为1.
-                        preLevel++;
-                        preNumber = 1;
-                        if (preLevel > maxLevel) {//判断是有已经做完所有level
-                            Toast.makeText(cordova.getActivity().getBaseContext(), "专辑完成", Toast.LENGTH_LONG).show();
-//                            Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
-//                            cordova.getActivity().startActivity(intent);
-//                            cordova.getActivity().finish();
-                            return;
-                        } else {//否则继续给题目
-                            resultJO = pickProblem(preLevel, preNumber);
-                        }
-                    } else if ("failed".equals(arg)) {
-                        preNumber++;//题号++
-                        cBloods--;// 血--；
-                        if (cBloods < 1) {//血掉完，退出做题
-                            Toast.makeText(cordova.getActivity().getBaseContext(), "做题失败，下次再来", Toast.LENGTH_LONG).show();
-//                            Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
-//                            cordova.getActivity().startActivity(intent);
-//                            cordova.getActivity().finish();
-                            return;
-                        } else {
-                            resultJO = pickProblem(preLevel, preNumber);
-                        }
-                    } else {//默认其他参数,返回
-                        callbackContext.error("不是加载第一题 ,参数非法");
-                    }
-                }
-
-                if (resultJO != null) {
-                    callbackContext.success(resultJO);
-                    cLevel = preLevel;
-                    cNumber = preNumber;
-                } else {
-                    callbackContext.error("load error");
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            callbackContext.error(e.getMessage());
-        }
-
-    }
-
-    /**
-     * @param level
-     * @param number
-     * @return
-     */
-    private JSONObject pickProblem(int level, int number) {
-        if (level > maxLevel)
-            return null;
-        try {
-            JSONObject problemSetJO = new JSONObject(practiceSetMock);
-            JSONArray problemSet = problemSetJO.getJSONArray("problems");
-            int count = problemSet.length();
-            int tmpNumber = 0;
-            for (int i = 0; i < count; i++) {
-                JSONObject jo = problemSet.getJSONObject(i);
-                if (jo != null) {
-                    int lv = jo.getInt("level");
-                    if (level == lv) {
-                        tmpNumber++;
-                        if (number == tmpNumber) {
-                            return jo;
-                        }
-                    }
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return null;
+        callbackContext.error("Deprecated");
     }
 
 
@@ -302,15 +212,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      * @param args
      * @param callbackContext
      */
+    @Deprecated
     private void loadImage(JSONArray args, final CallbackContext callbackContext) {
 
-
-        if (args == null || args.length() < 1) {
-            callbackContext.error(ACTION_LOAD_IMAGE + " args is null");
-        } else {
-//            String s= args.getString(0);
-            callbackContext.success("");
-        }
+        callbackContext.error(" Deprecated");
     }
 
 
@@ -340,30 +245,18 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "    {\n" +
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 1,\n" +
-            "      \"body\": \"已知：如图所示，$D$是$AC$上一点，$BC=AE$，$DE//AB$，$ angle B= angle DAE$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DAE$的判定依据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-LX-AAS-J1.png'></probimg></div>\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"body\": \"我是填空题,答案是2012\",\n" +
+            "      \"mType\": \"blank\",\n" +
+            "      \"blank\": \"2012\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"3\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"6\"\n" +
-            "        }\n" +
-            "      ]\n" +
+            "      \"choices\": []\n" +
             "    },\n" +
             "    {\n" +
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 1,\n" +
             "      \"body\": \"单项式−a2b3c的系数和次数的和是（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"mType\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627359414db95ec4d49cf79\",\n" +
             "      \"choices\": [\n" +
@@ -385,7 +278,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 2,\n" +
             "      \"body\": \"已知：如图所示，$E$、$B$、$F$、$C$在同一条直线上，若$ angle D= angle A=90^circ$，$EB=FC$，$AB=DF$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DFE$，判定全等的根据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-HL-J3.png'></probimg></div>\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"mType\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -407,7 +300,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 2,\n" +
             "      \"body\": \"已知：a=2，b=3，则(−2ab+3a)−2(2a−b)+2ab的值为（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"mType\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -429,7 +322,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 3,\n" +
             "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"mType\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -451,7 +344,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 3,\n" +
             "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
+            "      \"mType\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -474,7 +367,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
     private String challengeSetMock = "[{\n" +
             "\t\"problemSet\": \"9d8440cf2f411804\",\n" +
-            "\t\"type\": \"single\",\n" +
+            "\t\"mType\": \"single\",\n" +
             "\t\"body\": \"帮小锤在横线上填上正确的数： $x^2-6x+$____$=(x-$____$)^2$\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$9$&nbsp;;&nbsp;$3$\",\n" +
@@ -487,7 +380,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"251717a8a2619840\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"19b20098859caadb\",\n" +
-            "\t\"type\": \"single\",\n" +
+            "\t\"mType\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$36$&nbsp;;&nbsp;$6$\",\n" +
             "\t\t\"correct\": true\n" +
@@ -502,7 +395,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"cd650a55bb633826\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"c57f43c6c2a1b844\",\n" +
-            "\t\"type\": \"single\",\n" +
+            "\t\"mType\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$4$&nbsp;;&nbsp;$2$\",\n" +
             "\t\t\"correct\": true\n" +
@@ -517,7 +410,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"ee5bb2fc9fff3896\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"7636d00c9160089a\",\n" +
-            "\t\"type\": \"single\",\n" +
+            "\t\"mType\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$25 \\\\over 4$&nbsp;;&nbsp;$5 \\\\over 2$\",\n" +
             "\t\t\"correct\": true\n" +
