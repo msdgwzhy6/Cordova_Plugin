@@ -52,7 +52,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
 //        String argSet = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
-//        boolean isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE_TYPE, false);
+//        boolean isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE, false);
 //        mProgress = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_CURRENT_PROGRESS, 0);
 //        mTotal = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_TOTAL_PROGRESS, 0);
 //        if (isChallenge) {
@@ -239,17 +239,14 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "  }\n," +
             "  \"name\": \"myBaby123\",\n" +
             "  \"desc\": \"first create\",\n" +
-            "  \"challengeAmount\": 5,\n" +
-            "  \"__v\": 0,\n" +
             "  \"problems\": [\n" +
             "    {\n" +
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"prompt\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 1,\n" +
             "      \"body\": \"我是填空题,答案是2012\",\n" +
-            "      \"mType\": \"blank\",\n" +
+            "      \"type\": \"blank\",\n" +
             "      \"blank\": \"2012\",\n" +
-            "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": []\n" +
             "    },\n" +
@@ -257,8 +254,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 1,\n" +
             "      \"body\": \"单项式−a2b3c的系数和次数的和是（ ）\",\n" +
-            "      \"mType\": \"single\",\n" +
-            "      \"flag\": \"practice\",\n" +
+            "      \"type\": \"single\",\n" +
             "      \"_id\": \"5627359414db95ec4d49cf79\",\n" +
             "      \"choices\": [\n" +
             "        {\n" +
@@ -279,7 +275,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 2,\n" +
             "      \"body\": \"已知：如图所示，$E$、$B$、$F$、$C$在同一条直线上，若$ angle D= angle A=90^circ$，$EB=FC$，$AB=DF$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DFE$，判定全等的根据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-HL-J3.png'></probimg></div>\",\n" +
-            "      \"mType\": \"single\",\n" +
+            "      \"type\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -301,7 +297,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 2,\n" +
             "      \"body\": \"已知：a=2，b=3，则(−2ab+3a)−2(2a−b)+2ab的值为（ ）\",\n" +
-            "      \"mType\": \"single\",\n" +
+            "      \"type\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -323,7 +319,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 3,\n" +
             "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"mType\": \"single\",\n" +
+            "      \"type\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -345,7 +341,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
             "      \"level\": 3,\n" +
             "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"mType\": \"single\",\n" +
+            "      \"type\": \"single\",\n" +
             "      \"flag\": \"practice\",\n" +
             "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
             "      \"choices\": [\n" +
@@ -368,7 +364,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
     private String challengeSetMock = "[{\n" +
             "\t\"problemSet\": \"9d8440cf2f411804\",\n" +
-            "\t\"mType\": \"single\",\n" +
+            "\t\"type\": \"single\",\n" +
             "\t\"body\": \"帮小锤在横线上填上正确的数： $x^2-6x+$____$=(x-$____$)^2$\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$9$&nbsp;;&nbsp;$3$\",\n" +
@@ -381,7 +377,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"251717a8a2619840\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"19b20098859caadb\",\n" +
-            "\t\"mType\": \"single\",\n" +
+            "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$36$&nbsp;;&nbsp;$6$\",\n" +
             "\t\t\"correct\": true\n" +
@@ -396,7 +392,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"cd650a55bb633826\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"c57f43c6c2a1b844\",\n" +
-            "\t\"mType\": \"single\",\n" +
+            "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$4$&nbsp;;&nbsp;$2$\",\n" +
             "\t\t\"correct\": true\n" +
@@ -411,7 +407,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"id\": \"ee5bb2fc9fff3896\"\n" +
             "}, {\n" +
             "\t\"problemSet\": \"7636d00c9160089a\",\n" +
-            "\t\"mType\": \"single\",\n" +
+            "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$25 \\\\over 4$&nbsp;;&nbsp;$5 \\\\over 2$\",\n" +
             "\t\t\"correct\": true\n" +
