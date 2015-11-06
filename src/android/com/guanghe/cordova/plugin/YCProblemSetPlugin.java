@@ -39,9 +39,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private static final String ACTION_FINISH_PROBLEM_SET = "finishProblemSet";//完成专辑测试
     private static final String ACTION_LOAD_PROBLEM_SET = "loadProblemSet";
 
-    private String mType = "p";
-    private int mProgress = 1;
-    private int mTotal = 5;
+    /**
+     * 题目类型
+     */
+    private String type = "p";
 
 
     /**
@@ -56,9 +57,9 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 //        mProgress = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_CURRENT_PROGRESS, 0);
 //        mTotal = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_TOTAL_PROGRESS, 0);
 //        if (isChallenge) {
-//            mType = "c";
+//            type = "c";
 //        } else {
-//            mType = "p";
+//            type = "p";
 //        }
 //
 //        if (argSet != null) {
@@ -93,7 +94,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             finishProblemSet(args, callbackContext);
             return true;
         } else if (ACTION_LOAD_PROBLEM_SET.equals(action)) {
-            if (TextUtils.equals("p", mType)) {
+            if (TextUtils.equals("p", type)) {
                 loadPracticeSet(callbackContext);
             } else {
                 loadChallengeSet(callbackContext);
@@ -184,10 +185,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private void loadProblemContext(JSONArray args, CallbackContext callbackContext) {
         try {
             JSONObject jsonObject = new JSONObject();
-//            jsonObject.put("maxLevel", maxLevel);
-            jsonObject.put("type", mType);
-            jsonObject.put("currentProgress", mProgress);
-            jsonObject.put("totalProgress", mTotal);
+            jsonObject.put("type", type);
             callbackContext.success(jsonObject);
         } catch (JSONException e) {
             callbackContext.error(e.getMessage());
@@ -220,11 +218,6 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
 
     private String practiceSetMock = "{\n" +
-            "  \"_id\": \"5627355e14db95ec4d49cf76\",\n" +
-            "  \"deleted\": false,\n" +
-            "  \"createdAt\": \"2015-10-21T06:49:02.275Z\",\n" +
-            "  \"updatedAt\": \"2015-10-21T06:49:02.275Z\",\n" +
-            "  \"bloods\": 3,\n" +
             "  \"hyperVideo\": {\n" +
             "    \"_id\": \"hvideo_1\",\n" +
             "    \"video\": \"videoId213131\",\n" +
@@ -237,129 +230,161 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "      \"pc\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\"\n" +
             "    }\n" +
             "  }\n," +
-            "  \"name\": \"myBaby123\",\n" +
-            "  \"desc\": \"first create\",\n" +
+            "  \"_id\": \"563866a538e9d0bf55bc9e93\",\n" +
+            "  \"deleted\": false,\n" +
+            "  \"createdAt\": \"2015-11-03T07:47:49.098Z\",\n" +
+            "  \"updatedAt\": \"2015-11-03T07:47:49.098Z\",\n" +
+            "  \"name\": \"新专题123123313\",\n" +
+            "  \"challengeAmount\": 2,\n" +
+            "  \"gongLueImage\": \"http://7sbkoa.com2.z0.glb.qiniucdn.com/lALOAnmF_c0DbM0Dkw_915_876.png\",\n" +
+            "  \"desc\": [],\n" +
             "  \"problems\": [\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"prompt\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 1,\n" +
-            "      \"body\": \"我是填空题,答案是2012\",\n" +
-            "      \"type\": \"blank\",\n" +
-            "      \"blank\": \"2012\",\n" +
-            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": []\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 1,\n" +
-            "      \"body\": \"单项式−a2b3c的系数和次数的和是（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
-            "      \"_id\": \"5627359414db95ec4d49cf79\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"3\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"6\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 2,\n" +
-            "      \"body\": \"已知：如图所示，$E$、$B$、$F$、$C$在同一条直线上，若$ angle D= angle A=90^circ$，$EB=FC$，$AB=DF$，则$ \\triangle ABC stackrel{\\backsim}{=}  \\triangle DFE$，判定全等的根据是（   ）<div><probimg src='http://7sbko6.com2.z0.glb.qiniucdn.com/QD-HL-J3.png'></probimg></div>\",\n" +
-            "      \"type\": \"single\",\n" +
-            "      \"flag\": \"practice\",\n" +
-            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"13\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"61\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 2,\n" +
-            "      \"body\": \"已知：a=2，b=3，则(−2ab+3a)−2(2a−b)+2ab的值为（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
-            "      \"flag\": \"practice\",\n" +
-            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"13\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"61\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 3,\n" +
-            "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
-            "      \"flag\": \"practice\",\n" +
-            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"13\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"61\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"explain\": \"−a2b3c的系数是−1，次数是2+3+1=6−1+6=5\",\n" +
-            "      \"level\": 3,\n" +
-            "      \"body\": \"下面是根据规律排列的一列数:3、5、7、9⋯⋯，那么第n个数是____（ ）\",\n" +
-            "      \"type\": \"single\",\n" +
-            "      \"flag\": \"practice\",\n" +
-            "      \"_id\": \"5627357e14db95ec4d49cf78\",\n" +
-            "      \"choices\": [\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"13\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": false,\n" +
-            "          \"body\": \"5\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"correct\": true,\n" +
-            "          \"body\": \"61\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    }\n" +
-            "  ]\n" +
+            "    [\n" +
+            "      {\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"blank\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"_id\": \"563866ac38e9d0bf55bc9e95\",\n" +
+            "        \"body\": \"是打发撒旦法师撒旦法是否\",\n" +
+            "        \"type\": \"blank\",\n" +
+            "        \"level\": 1,\n" +
+            "        \"choices\": []\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ad38e9d0bf55bc9e96\",\n" +
+            "        \"body\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 1,\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    ],\n" +
+            "    [\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ab38e9d0bf55bc9e94\",\n" +
+            "        \"body\": \"阿斯蒂芬的萨芬\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 2,\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ab38e9d0bf55bc9e94\",\n" +
+            "        \"body\": \"阿斯蒂芬的萨芬\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 2,\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ab38e9d0bf55bc9e94\",\n" +
+            "        \"body\": \"阿斯蒂芬的萨芬\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 2,\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ab38e9d0bf55bc9e94\",\n" +
+            "        \"body\": \"阿斯蒂芬的萨芬\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 2,\n" +
+            "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  ],\n" +
+            "  \"hyperVideo\": null\n" +
             "}";
 
     private String challengeSetMock = "[{\n" +
