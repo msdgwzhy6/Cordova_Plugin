@@ -216,7 +216,18 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         callbackContext.error(" Deprecated");
     }
 
-
+    //    "  \"hyperVideo\": {\n" +
+//            "    \"_id\": \"hvideo_1\",\n" +
+//            "    \"video\": \"videoId213131\",\n" +
+//            "    \"titleTime\": \"10000\",\n" +
+//            "    \"finishTime\": \"10000\",\n" +
+//            "    \"duration\": \"10000\",\n" +
+//            "    \"name\": \"测试的讲解视频\",\n" +
+//            "    \"url\": {\n" +
+//            "      \"mobile\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\",\n" +
+//            "      \"pc\": \"http://119.90.16.196:9999/7xaw4c.com2.z0.glb.qiniucdn.com/%E6%95%B4%E5%BC%8F%E7%9A%84%E4%B9%98%E6%B3%95_1a_%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A5%E5%AE%8C%E8%AE%A1%E5%88%92.mp4\"\n" +
+//            "    }\n" +
+//            "  }\n," +
     private String practiceSetMock = "{\n" +
             "  \"hyperVideo\": {\n" +
             "    \"_id\": \"hvideo_1\",\n" +
@@ -242,10 +253,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "    [\n" +
             "      {\n" +
             "        \"prompt\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
-            "        \"blank\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
+            "        \"blank\": \"1\",\n" +
             "        \"explain\": \"负数可以表示一个相反意义的量。比如说，桑尼姐增肥$5kg$用$+5$表示，那么$-2$表示\",\n" +
             "        \"_id\": \"563866ac38e9d0bf55bc9e95\",\n" +
-            "        \"body\": \"是打发撒旦法师撒旦法是否\",\n" +
+            "        \"body\": \"答案是1\",\n" +
             "        \"type\": \"blank\",\n" +
             "        \"level\": 1,\n" +
             "        \"choices\": []\n" +
@@ -382,9 +393,46 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "          }\n" +
             "        ]\n" +
             "      }\n" +
+            "    ],\n" +
+            "    [\n" +
+            "      {\n" +
+            "        \"prompt\": \"哈哈哈哈\",\n" +
+            "        \"blank\": \"2012\",\n" +
+            "        \"explain\": \"填空题2111\",\n" +
+            "        \"_id\": \"563866ac38e9d1bf55bc9e95\",\n" +
+            "        \"body\": \"答案是2012\",\n" +
+            "        \"type\": \"blank\",\n" +
+            "        \"level\": 3,\n" +
+            "        \"choices\": []\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"_id\": \"563866ad38e9d0bf55bc9e963213123\",\n" +
+            "        \"body\": \"床前明月光～～\",\n" +
+            "        \"type\": \"single\",\n" +
+            "        \"level\": 3,\n" +
+            "        \"explain\": \"大大叔大叔大叔大叔大叔｀\",\n" +
+            "        \"prompt\": \"dasdasdasdasdasdasdas\",\n" +
+            "        \"choices\": [\n" +
+            "          {\n" +
+            "            \"body\": \"$A$\",\n" +
+            "            \"correct\": true\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$B$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$C$\",\n" +
+            "            \"correct\": false\n" +
+            "          },\n" +
+            "          {\n" +
+            "            \"body\": \"$D$\",\n" +
+            "            \"correct\": false\n" +
+            "          }\n" +
+            "        ]\n" +
+            "      }\n" +
             "    ]\n" +
-            "  ],\n" +
-            "  \"hyperVideo\": null\n" +
+            "  ]\n" +
             "}";
 
     private String challengeSetMock = "[{\n" +
