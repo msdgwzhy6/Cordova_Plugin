@@ -9,11 +9,7 @@ parameter:
   (无)  
 return:  jsonObjct
  ````
-maxLevel: String,
 type: String,（"c"挑战题 "p"专辑题）
-bloods: Number,
-currentProgress: Number,
-totalProgress: Number
 
  ````
 
