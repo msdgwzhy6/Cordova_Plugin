@@ -43,7 +43,8 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      * 题目类型
      */
     private String type = "p";
-
+    private boolean isChallenge = false;
+    private int mSetIndex;
 
     /**
      * 维护做题状态
@@ -53,9 +54,8 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
 //        String argSet = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
-//        boolean isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE, false);
-//        mProgress = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_CURRENT_PROGRESS, 0);
-//        mTotal = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_TOTAL_PROGRESS, 0);
+//        isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE, false);
+//        mSetIndex = cordova.getActivity().getIntent().getIntExtra(ProblemDoingActivity.ARG_PROBLEM_SET_INDEX, 0);
 //        if (isChallenge) {
 //            type = "c";
 //        } else {
@@ -125,27 +125,48 @@ public class YCProblemSetPlugin extends CordovaPlugin {
                 boolean isPass = args.getBoolean(0);
                 if (isPass) {
                     Toast.makeText(cordova.getActivity().getBaseContext(), "测试通过了!!!!", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
-//                    cordova.getActivity().startActivity(intent);
-//                    cordova.getActivity().finish();
+//                    sumbmitPractice(isPass);
+
                 } else {
                     String setId = args.getString(1);
                     if (TextUtils.isEmpty(setId) || TextUtils.equals("null", setId)) {
                         Toast.makeText(cordova.getActivity().getBaseContext(), "专辑失败", Toast.LENGTH_LONG).show();
+//                        sumbmitPractice(isPass);
 
                     } else {
                         Toast.makeText(cordova.getActivity().getBaseContext(), "挑战失败:失败专辑=" + setId, Toast.LENGTH_LONG).show();
 
                     }
-//                    Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
-//                    cordova.getActivity().startActivity(intent);
-//                    cordova.getActivity().finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
+//    private void sumbmitPractice(boolean pass){
+//        Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//        intent.putExtra(ProblemEndActivity.ARG_IS_CHALLENGE, isChallenge);
+//        intent.putExtra(ProblemEndActivity.ARG_PROBLEM_SET_INDEX, mSetIndex);
+//        intent.putExtra(ProblemEndActivity.ARG_IS_PASS, pass);
+//        intent.putExtra(ProblemEndActivity.ARG_PROBLEM_SET, mPracticeSetJO.toString());
+//        cordova.getActivity().startActivity(intent);
+//        cordova.getActivity().finish();
+//    }
+//
+//    private void sumbmitChallenge(boolean pass,String failedSet){
+//        Intent intent = new Intent(cordova.getActivity(), ProblemEndActivity.class);
+//        intent.putExtra(ProblemEndActivity.ARG_IS_CHALLENGE, isChallenge);
+////        intent.putExtra(ProblemEndActivity.ARG_PROBLEM_SET_INDEX, mSetIndex);
+//        intent.putExtra(ProblemEndActivity.ARG_IS_PASS, pass);
+//        intent.putExtra(ProblemEndActivity.ARG_PROBLEM_SET, mChallengeSetJA.toString());
+//        if (!TextUtils.isEmpty(failedSet)) {
+//            intent.putExtra(ProblemEndActivity.ARG_FAILED_SET_ID, failedSet);
+//        }
+//
+//        cordova.getActivity().startActivity(intent);
+//        cordova.getActivity().finish();
+//    }
 
     /**
      * @param callbackContext
@@ -436,7 +457,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "}";
 
     private String challengeSetMock = "[{\n" +
-            "\t\"problemSet\": \"9d8440cf2f411804\",\n" +
+            "\t\"problemSetId\": \"9d8440cf2f411804\",\n" +
             "\t\"type\": \"single\",\n" +
             "\t\"body\": \"帮小锤在横线上填上正确的数： $x^2-6x+$____$=(x-$____$)^2$\",\n" +
             "\t\"choices\": [{\n" +
@@ -449,7 +470,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"explain\": \"由$a^2-2ab+b^2=(a-b)^2$ <br />且$6x=2 \\\\\\\\cdot x \\\\\\\\cdot 3$，<br />所以$ x^2-6x+9= (x-3) ^2$。 \",\n" +
             "\t\"id\": \"251717a8a2619840\"\n" +
             "}, {\n" +
-            "\t\"problemSet\": \"19b20098859caadb\",\n" +
+            "\t\"problemSetId\": \"19b20098859caadb\",\n" +
             "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$36$&nbsp;;&nbsp;$6$\",\n" +
@@ -464,7 +485,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"blank\": null,\n" +
             "\t\"id\": \"cd650a55bb633826\"\n" +
             "}, {\n" +
-            "\t\"problemSet\": \"c57f43c6c2a1b844\",\n" +
+            "\t\"problemSetId\": \"c57f43c6c2a1b844\",\n" +
             "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$4$&nbsp;;&nbsp;$2$\",\n" +
@@ -479,7 +500,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             "\t\"blank\": null,\n" +
             "\t\"id\": \"ee5bb2fc9fff3896\"\n" +
             "}, {\n" +
-            "\t\"problemSet\": \"7636d00c9160089a\",\n" +
+            "\t\"problemSetId\": \"7636d00c9160089a\",\n" +
             "\t\"type\": \"single\",\n" +
             "\t\"choices\": [{\n" +
             "\t\t\"body\": \"$25 \\\\over 4$&nbsp;;&nbsp;$5 \\\\over 2$\",\n" +
