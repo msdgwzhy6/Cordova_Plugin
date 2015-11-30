@@ -31,6 +31,10 @@ YCProblemSetPlugin.prototype.loadProblemSet = function (options) {
     options = options || {};
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblemSet", [options]);
 };
+YCProblemSetPlugin.prototype.recordTrackInfo = function (options) {
+    options = options || {};
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordTrackInfo", [options]);
+};
 
 
 YCProblemSetPlugin.install = function () {
