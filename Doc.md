@@ -49,3 +49,7 @@ return: String (图片的base64编码)
 ####7. recordTrackInfo（记录做题埋点）
 parameter: Array（埋点数组）  
 return: 无 
+
+####8. recordWrongProblems(记录做题错误)
+parameter: Array（埋点数组）  
+return: 无 
