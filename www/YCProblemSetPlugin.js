@@ -35,9 +35,9 @@ YCProblemSetPlugin.prototype.recordTrackInfo = function (points,options) {
     options = options || {};
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordTrackInfo", [points,options]);
 };
-YCProblemSetPlugin.prototype.recordWrongProblems = function (options) {
+YCProblemSetPlugin.prototype.recordWrongProblems = function (answers,options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordWrongProblems", [options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordWrongProblems", [answers,options]);
 };
 
 YCProblemSetPlugin.install = function () {
