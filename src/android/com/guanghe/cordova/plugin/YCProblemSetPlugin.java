@@ -45,7 +45,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private String type = "p";
     private boolean isChallenge = false;
     private int mSetIndex;
-
+    private String mTopicId;
     /**
      * 维护做题状态
      */
@@ -207,6 +207,11 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("type", type);
+            if (TextUtils.isEmpty(mTopic)){
+                jsonObject.put("topicId", mockTopicId);
+            }else {
+                jsonObject.put("topicId", mTopic);
+            }
             callbackContext.success(jsonObject);
         } catch (JSONException e) {
             callbackContext.error(e.getMessage());
@@ -236,7 +241,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 
         callbackContext.error(" Deprecated");
     }
-
+    private String mockTopicId = "testTopicId123";
     //    "  \"hyperVideo\": {\n" +
 //            "    \"_id\": \"hvideo_1\",\n" +
 //            "    \"video\": \"videoId213131\",\n" +
