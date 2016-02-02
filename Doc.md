@@ -10,7 +10,7 @@ parameter:
 return:  jsonObjct
  ````
 type: String,（"c"挑战题 "p"专辑题）
-topic: String,（知识点的id）
+topicId: String,（知识点的id）
 
  ````
 
