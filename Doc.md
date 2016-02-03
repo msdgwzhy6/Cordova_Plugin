@@ -3,7 +3,7 @@
 + eventTime:事件发生的时间[date]
 + category:事件分类[string]
 + eventKey:事件名称[string]
-+ eventValue:事件的值[obejet]
++ eventValue:事件的值[object]
  
 做题App只能传递以上参数，额外参数应放入`eventValue`中。
 
