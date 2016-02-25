@@ -22,6 +22,7 @@ return:  jsonObjct
 type: String,（"c"挑战题 "p"专辑题）
 topicId: String,（知识点的id）
 showImgSymbol: Boolean（是否将大于等于号或小于等于号等特殊符号，使用图片显示）
+              （仅Android App传这个参数，iOS App无需传递这个字段）
 
  ````
 
