@@ -1,4 +1,4 @@
-###做题App的参数传递
+###做题App的埋点参数传递
 ----
 + eventTime:事件发生的时间[date]
 + category:事件分类[string]
