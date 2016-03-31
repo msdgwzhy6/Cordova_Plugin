@@ -19,8 +19,16 @@ parameter:
   (无)  
 return:  jsonObjct
  ````
-type: String,（"c"挑战题 "p"专辑题）
+topicType: String,（[enum] 'A', 'B', 'C', 'D', 'E', 'I', 'S'（知识点的类型：A类和非A类））即服务器返回数据中知识点结构type
 topicId: String,（知识点的id）
+topicState:*JsonObj（知识点状态)（默认值：空对象）
+          {
+          *finishState: [enum] 'unfinished' / 'perfect' /  'imperfect'（未完成／完美完成／不完美完成）     （默认值：unfinished）
+          *levels: {  （已有的层状态）  （默认值：空对象）
+                  （在完全完成一轮测试题后，levels字段会被清空，再次进来时通过finishState字段来确定进入的层数和加不加分）
+                      levelId: 0/1/2, // 0- failed; 1- 一次性做对;2- 第二次做对
+                  }
+          }
 showImgSymbol: Boolean（是否将大于等于号或小于等于号等特殊符号，使用图片显示）
               （仅Android App传这个参数，iOS App无需传递这个字段）
 
@@ -65,4 +73,20 @@ return: 无
 
 ####8. recordWrongProblems(记录做题错误)
 parameter: Array（埋点数组）  
+return: 无 
+
+####9. evelFail（某一层题答题失败）
+parameter: String（Level ID）  
+return: 无 
+
+####10. evelSuccess（某一层答题成功)
+parameter: 
+````
+String（Level ID）
+int  (tryTimes: [enum] 1/2 （第几次做对,用于积分计算）)
+仅最后一层请求时会发另一个字段——
+levels: {（在习题端纪录的层纪录，一般情况下后端不会用这个数据，在数据丢失无法计算完成状态时，会以前端的层纪录为计算依据）
+          levelId: 0/1/2, // 0- failed; 1- 一次性做对;2- 第二次做对
+        }
+ ````               
 return: 无 
