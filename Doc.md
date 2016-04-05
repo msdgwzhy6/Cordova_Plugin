@@ -33,8 +33,7 @@ return: 无
 
 ####3. loadProblemSet (加载专辑所有题目)
 parameter:无  
-return: 
-练习题:problemSet [problemSet scheme](https://github.com/guanghetv/onions/blob/master/src/models/problemSet.js)  
+return: Object (对于客户端来说对应的数据直接是topic－>module->practice object，不做过滤)
 
 ####4. recordTrackInfo（记录做题埋点）
 parameter: Array（埋点数组）  
@@ -44,11 +43,11 @@ return: 无
 parameter: Array（埋点数组）  
 return: 无 
 
-####6. evelFail（某一层题答题失败）
+####6. levelFail（某一层题答题失败）
 parameter: String（Level ID）  
 return: 无 
 
-####7. evelSuccess（某一层答题成功)
+####7. levelSuccess（某一层答题成功)
 parameter: args[]
 ````
 args[0]:String（Level ID）
