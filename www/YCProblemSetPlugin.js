@@ -2,15 +2,6 @@
 function YCProblemSetPlugin() {
 }
 
-YCProblemSetPlugin.prototype.loadImage = function (url, options) {
-	options = options || {};
-	cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadImage", [url, options]);
-};
-               
-YCProblemSetPlugin.prototype.loadProblem = function (url, options) {
-    options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "loadProblem", [url, options]);
-};
 
 YCProblemSetPlugin.prototype.loadProblemContext = function (options) {
     options = options || {};
@@ -38,6 +29,14 @@ YCProblemSetPlugin.prototype.recordTrackInfo = function (points,options) {
 YCProblemSetPlugin.prototype.recordWrongProblems = function (answers,options) {
     options = options || {};
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordWrongProblems", [answers,options]);
+};
+YCProblemSetPlugin.prototype.levelFail = function (options) {
+    options = options || {};
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "levelFail", [options]);
+};
+YCProblemSetPlugin.prototype.levelSuccess = function (levelId,postBody,isLastLevel,options) {
+    options = options || {};
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "levelSuccess", [levelId,postBody,isLastLevel,options]);
 };
 
 YCProblemSetPlugin.install = function () {
