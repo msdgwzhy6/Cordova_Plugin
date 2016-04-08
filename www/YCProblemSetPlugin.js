@@ -30,9 +30,9 @@ YCProblemSetPlugin.prototype.recordWrongProblems = function (answers,options) {
     options = options || {};
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "recordWrongProblems", [answers,options]);
 };
-YCProblemSetPlugin.prototype.levelFail = function (options) {
+YCProblemSetPlugin.prototype.levelFail = function (levelId,isHanger,options) {
     options = options || {};
-    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "levelFail", [options]);
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "levelFail", [levelId,isHanger,options]);
 };
 YCProblemSetPlugin.prototype.levelSuccess = function (levelId,postBody,isLastLevel,options) {
     options = options || {};

@@ -110,7 +110,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             e.printStackTrace();
         }
     }
-//    private void initData(){
+    private void initData(){
 //         mIsShowImgSymbol =   YCPreferenceManager.getBooleanValue(cordova.getActivity(), YCPreferenceManager.KEY_SHOW_IMG_SYMBOL)
 //        String argSet = cordova.getActivity().getIntent().getStringExtra(ProblemDoingActivity.ARG_PROBLEM_SET);
 //        isChallenge = cordova.getActivity().getIntent().getBooleanExtra(ProblemDoingActivity.ARG_IS_CHALLENGE, false);
@@ -133,7 +133,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
 //                e.printStackTrace();
 //            }
 //        }
-//    }
+    }
 
 
     @Override
@@ -373,7 +373,8 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         } else {
             try {
                 String levelId = args.getString(0);
-                Toast.makeText(cordova.getActivity(), "层失败:" + levelId, Toast.LENGTH_LONG).show();
+                Boolean isHanger = args.getBoolean(1);
+                Toast.makeText(cordova.getActivity(), "层失败:" + levelId+" is hanger?"+isHanger, Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 callbackContext.error(e.getMessage());
             }
