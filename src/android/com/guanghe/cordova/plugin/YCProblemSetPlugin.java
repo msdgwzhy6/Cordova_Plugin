@@ -374,7 +374,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             try {
                 String levelId = args.getString(0);
                 Boolean isHanger = args.getBoolean(1);
-                Toast.makeText(cordova.getActivity(), "层失败:" + levelId+" is hanger?"+isHanger, Toast.LENGTH_LONG).show();
+                Toast.makeText(cordova.getActivity(), "levelFail:" +args.toString(), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 callbackContext.error(e.getMessage());
             }
@@ -393,9 +393,9 @@ public class YCProblemSetPlugin extends CordovaPlugin {
         } else {
             try {
                 String levelId = args.getString(0);
-                int tryTimes = args.getInt(1);
-                JSONObject levelObj = args.getJSONObject(2);
-                Toast.makeText(cordova.getActivity(), "层成功:" + levelId + "第几次做对" + tryTimes, Toast.LENGTH_LONG).show();
+                boolean isLastLevel = args.getBoolean(1);
+                JSONObject body = args.getJSONObject(2);
+                Toast.makeText(cordova.getActivity(), "levelSucceed"+args.toString(), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 callbackContext.error(e.getMessage());
             }
