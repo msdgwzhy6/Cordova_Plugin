@@ -39,6 +39,11 @@ YCProblemSetPlugin.prototype.levelSuccess = function (levelId,postBody,isLastLev
     cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "levelSuccess", [levelId,postBody,isLastLevel,options]);
 };
 
+YCProblemSetPlugin.prototype.finishExam = function (pass,examTopicId,failedGuide,options) {
+    options = options || {};
+    cordova.exec(options.successCallback || null, options.errorCallback || null, "YCProblemSetPlugin", "finishExam", [pass,examTopicId,failedGuide,options]);
+};
+
 YCProblemSetPlugin.install = function () {
 	if (!window.plugins) {
 		window.plugins = {};

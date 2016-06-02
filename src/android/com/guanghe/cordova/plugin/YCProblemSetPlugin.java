@@ -69,6 +69,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     private static final String ACTION_LOAD_PROBLEM_SET = "loadProblemSet";
     private static final String ACTION_RECORD_TRACK_INFO = "recordTrackInfo";
     private static final String ACTION_RECORD_WRONG_PROBLEMS = "recordWrongProblems";
+    private static final String ACTION_FINISH_EXAM = "finishExam";
 
     /**
      * 题目类型
@@ -164,6 +165,10 @@ public class YCProblemSetPlugin extends CordovaPlugin {
             return true;
         } else if (ACTION_LEVEL_SUCCESS.equals(action)) {
             levelSucceed(args, callbackContext);
+            return true;
+        } else if (ACTION_FINISH_EXAM.equals(action)) {
+                    Toast.makeText(cordova.getActivity(), "ACTION_FINISH_EXAM", Toast.LENGTH_LONG).show();
+
             return true;
         } else {
             callbackContext.error(action + ":action not define!");
