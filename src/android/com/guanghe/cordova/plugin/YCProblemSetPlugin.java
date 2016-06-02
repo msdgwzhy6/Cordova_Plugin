@@ -230,7 +230,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
      */
     private void closeProblemSet() {
         cordova.getActivity().finish();
-        HashMap<String, Object> values = new HashMap<>();
+        HashMap<String, Object> values = new HashMap<String, Object>();
 //        String topicId = ((YCMathApplication) (YCMathApplication.getInstance())).getStudyingTopicId();
 //        if (isChallenge) {
 //            values.put("topicId", topicId);
@@ -295,7 +295,7 @@ public class YCProblemSetPlugin extends CordovaPlugin {
     }
 
     private void sendFinishProblemSetEvent(boolean pass) {
-//        HashMap<String, Object> values = new HashMap<>();
+//        HashMap<String, Object> values = new HashMap<String, Object>();
 //        values.put("topicId", mTopic);
 //        values.put("problemSetId", CommonUtils.getStringFromJsonObj(ProblemSet._id, mPracticeSetJO));
 //        if (pass) {
