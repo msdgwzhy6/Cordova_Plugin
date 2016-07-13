@@ -28,6 +28,7 @@ topicState:Object (知识点进度，结构遵循后台，不存在是传递Null
 showImgSymbol: Boolean（是否将大于等于号或小于等于号等特殊符号，使用图片显示）
               （仅Android App传这个参数，iOS App无需传递这个字段）
 rewardRules: Object (/reward-rules 服务端返回结构中的 points对象，不存在则传递Null，非{});
+debug: Boolean
  ````
 
 ####2. closeProblemSet (退出做题)
